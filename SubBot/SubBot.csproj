@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Version>0.1.0</Version>
+    <PackageId>SubBot.CS</PackageId>
+    <Authors>TehGM</Authors>
+    <Product>SubBot C#</Product>
+    <Company>DevSubmarine</Company>
+    <Copyright>Copyright (c) 2020 DevSubmarine</Copyright>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/DevSubmarine/SubBot-CS</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/DevSubmarine/SubBot-CS</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RootNamespace>DevSubmarine.SubBot</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="appsecrets-example.json" />
+    <None Remove="appsecrets.Development.json" />
+    <None Remove="appsecrets.json" />
+    <None Remove="appsettings - Copy.json" />
+    <None Remove="appsettings.Development.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsecrets.Development.json" Condition="Exists('appsecrets.Development.json')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appsecrets.json" Condition="Exists('appsecrets.json')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appsettings - Copy.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appsettings.Development.json" Condition="Exists('appsettings.Development.json')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appsecrets-example.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.8" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+</Project>
