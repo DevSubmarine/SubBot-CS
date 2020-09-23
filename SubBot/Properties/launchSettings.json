@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SubBot": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
