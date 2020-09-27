@@ -10,6 +10,8 @@ namespace DevSubmarine.SubBot.Commands.Administrator
     public class Purge : ModuleBase<SocketCommandContext>
     {
         [Command("purge"), Alias("delete")]
+        [RequireContext(ContextType.Guild, ErrorMessage = "Please use this command in a server!")]
+        [RequireUserPermission(GuildPermission.ManageMessages, ErrorMessage = "You do not have permission `Manage Messages`")]
         public async Task PurgeMessages(int? msgToDel = null)
         {
             if (msgToDel == null || msgToDel == 0)
@@ -20,7 +22,7 @@ namespace DevSubmarine.SubBot.Commands.Administrator
                     .AddField("Info", "Deletes a specified amount of messages")
                     .AddField("To Use", "`purge/delete {NumOfMessages}`")
                     .Build();
-                await ReplyAsync(embed: NullEmbed);
+                await Context.Channel.SendMessageAsync(embed: NullEmbed);
             }
 
             else
