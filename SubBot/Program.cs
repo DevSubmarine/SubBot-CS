@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DevSubmarine.SubBot.Services;
+using Discord;
+using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,9 +33,10 @@ namespace DevSubmarine.SubBot
                     // add Discord client
                     services.AddSingleton<IHostedDiscordClient, HostedDiscordClient>();
                     services.AddTransient<IHostedService>(s => (IHostedService)s.GetRequiredService<IHostedDiscordClient>());
+                    services.AddTransient<IDiscordClient>(s => s.GetRequiredService<IHostedDiscordClient>().Client);
+                    services.AddTransient<DiscordSocketClient>(s => (DiscordSocketClient)s.GetRequiredService<IDiscordClient>());
 
                     // add handlers
-
                 })
                 .UseSerilog((context, config) => ConfigureSerilog(context, config), true)
                 .Build();

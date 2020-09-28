@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Discord;
 
 namespace DevSubmarine.SubBot
 {
     public interface IHostedDiscordClient
     {
+        IDiscordClient Client { get; }
     }
 }

@@ -12,6 +12,8 @@ namespace DevSubmarine.SubBot.Services
 {
     public class HostedDiscordClient : IHostedDiscordClient, IHostedService, IDisposable
     {
+        public IDiscordClient Client => _client;
+
         private readonly ILogger _log;
         private readonly IOptionsMonitor<DiscordOptions> _discordOptions;
         private DiscordSocketClient _client;
@@ -28,7 +30,7 @@ namespace DevSubmarine.SubBot.Services
 
             _discordOptions.OnChange(async _ =>
             {
-                if (_client.ConnectionState == ConnectionState.Connected || _client.ConnectionState == ConnectionState.Connecting)
+                if (Client.ConnectionState == ConnectionState.Connected || Client.ConnectionState == ConnectionState.Connecting)
                 {
                     _log.LogInformation("Options changed, reconnecting client");
                     await StopDiscordClientAsync();
@@ -71,7 +73,7 @@ namespace DevSubmarine.SubBot.Services
             Dispose();
         }
 
-        public static explicit operator DiscordSocketClient(HostedDiscordClient client)
+        public static implicit operator DiscordSocketClient(HostedDiscordClient client)
             => client._client;
 
         public void Dispose()
