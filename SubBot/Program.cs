@@ -39,7 +39,7 @@ namespace DevSubmarine.SubBot
         {
             config.ReadFrom.Configuration(context.Configuration);
             DatadogOptions ddOptions = context.Configuration.GetSection("Serilog")?.GetSection("DataDog")?.Get<DatadogOptions>();
-            if (ddOptions != null)
+            if (!string.IsNullOrWhiteSpace(ddOptions?.ApiKey))
             {
                 config.WriteTo.DatadogLogs(
                     ddOptions.ApiKey,
