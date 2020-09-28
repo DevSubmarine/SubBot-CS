@@ -10,7 +10,7 @@ namespace DevSubmarine.SubBot.Commands.Administrator
         [RequireOwner]
         [RequireBotPermission(GuildPermission.BanMembers, ErrorMessage = "I do not have permission: `Ban Members`")]
         [Command("kick")]
-        public async Task kickUser(IGuildUser user = null, string reason = "Not specified!")
+        public async Task KickUser(IGuildUser user = null, string reason = "Not specified!")
         {
             if (user == null)
             {
