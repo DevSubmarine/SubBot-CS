@@ -27,6 +27,7 @@ namespace DevSubmarine.SubBot
                 {
                     // configure options
                     services.Configure<DiscordOptions>(context.Configuration.GetSection("Discord"));
+                    services.Configure<CommandOptions>(context.Configuration.GetSection("Commands"));
 
                     // add framework services
 
@@ -37,6 +38,7 @@ namespace DevSubmarine.SubBot
                     services.AddTransient<DiscordSocketClient>(s => (DiscordSocketClient)s.GetRequiredService<IDiscordClient>());
 
                     // add handlers
+                    services.AddHostedService<SimpleCommandsHandler>();
                 })
                 .UseSerilog((context, config) => ConfigureSerilog(context, config), true)
                 .Build();
