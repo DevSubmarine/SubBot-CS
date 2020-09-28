@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Discord;
@@ -26,6 +24,7 @@ namespace DevSubmarine.SubBot.Services
             DiscordSocketConfig clientConfig = new DiscordSocketConfig();
             clientConfig.WebSocketProvider = DefaultWebSocketProvider.Instance;
             _client = new DiscordSocketClient(clientConfig);
+            _client.Log += OnClientLog;
 
             _discordOptions.OnChange(async _ =>
             {
@@ -52,6 +51,12 @@ namespace DevSubmarine.SubBot.Services
                 await _client.StopAsync();
         }
 
+        private Task OnClientLog(LogMessage message)
+        {
+            _log.Log(message);
+            return Task.CompletedTask;
+        }
+
         Task IHostedService.StartAsync(CancellationToken cancellationToken)
         {
             if (_discordOptions.CurrentValue.AutoConnectGateway)
@@ -71,6 +76,7 @@ namespace DevSubmarine.SubBot.Services
 
         public void Dispose()
         {
+            _client.Log -= OnClientLog;
             _client?.Dispose();
         }
     }
