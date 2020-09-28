@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DevSubmarine.SubBot.Services;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
@@ -22,10 +24,13 @@ namespace DevSubmarine.SubBot
                 .ConfigureServices((context, services) =>
                 {
                     // configure options
+                    services.Configure<DiscordOptions>(context.Configuration.GetSection("Discord"));
 
                     // add framework services
 
                     // add Discord client
+                    services.AddSingleton<IHostedDiscordClient, HostedDiscordClient>();
+                    services.AddTransient<IHostedService>(s => (IHostedService)s.GetRequiredService<IHostedDiscordClient>());
 
                     // add handlers
 
