@@ -3,11 +3,12 @@ using Discord.Commands;
 using System;
 using System.Threading.Tasks;
 
-namespace DevSubmarine.Commands.Administrator
+namespace DevSubmarine.SubBot.Commands.Administrator
 {
     public class Ban : ModuleBase<SocketCommandContext>
     {
         [RequireOwner]
+        [RequireContext(ContextType.Guild, ErrorMessage = "Please use this command in a server!")]
         [RequireBotPermission(GuildPermission.BanMembers, ErrorMessage = "I do not have permission: `Ban Members`")]
         [Command("ban")]
         public async Task BanUser(IGuildUser user = null, string reason = "Not specified!", [Remainder] int pruneDays = 0)
@@ -16,7 +17,7 @@ namespace DevSubmarine.Commands.Administrator
             {
                 Embed nullUser = new EmbedBuilder()
                     .WithColor(Color.Red)
-                    .WithTitle("Ban Command : Error")
+                    .WithTitle("Ban Command : Info")
                     .AddField("Usage:", "`ban <user> <reason*> <pruneMessages* (days)>`", true)
                     .WithDescription("Bans a user from this server.")
                     .WithFooter("*Optional parameters")
