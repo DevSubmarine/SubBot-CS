@@ -9,6 +9,11 @@ C# instance of SubBot
 3. Populate with secrets. See [appsecrets-example.json](appsecrets-example.json) for example.
 4. Build and run.
 
+## Usage
+### Accessing Discord client
+Currently the bot uses a [DiscordSocketClient](https://discord.foxbot.me/docs/api/Discord.WebSocket.DiscordSocketClient.html) wrapped into [IHostedDiscordClient](SubBot/Services/IHostedDiscordClient.cs) to allow use with .NET Generic Host DI container. To access the client, simply use Constructor Injection in your service.  
+Injecting of [DiscordSocketClient](https://discord.foxbot.me/docs/api/Discord.WebSocket.DiscordSocketClient.html) or [IDiscordClient](https://discord.foxbot.me/docs/api/Discord.IDiscordClient.html) instead of [IHostedDiscordClient](SubBot/Services/IHostedDiscordClient.cs) is also supported to provide easier use of the client - each of these injections will return the same instance of the Discord client.
+
 ## License
 Copyright (c) 2020 DevSubmarine
 

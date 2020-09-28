@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DevSubmarine.SubBot.Services;
+using Discord;
+using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
@@ -22,13 +26,19 @@ namespace DevSubmarine.SubBot
                 .ConfigureServices((context, services) =>
                 {
                     // configure options
+                    services.Configure<DiscordOptions>(context.Configuration.GetSection("Discord"));
+                    services.Configure<CommandOptions>(context.Configuration.GetSection("Commands"));
 
                     // add framework services
 
                     // add Discord client
+                    services.AddSingleton<IHostedDiscordClient, HostedDiscordClient>();
+                    services.AddTransient<IHostedService>(s => (IHostedService)s.GetRequiredService<IHostedDiscordClient>());
+                    services.AddTransient<IDiscordClient>(s => s.GetRequiredService<IHostedDiscordClient>().Client);
+                    services.AddTransient<DiscordSocketClient>(s => (DiscordSocketClient)s.GetRequiredService<IDiscordClient>());
 
                     // add handlers
-
+                    services.AddHostedService<SimpleCommandsHandler>();
                 })
                 .UseSerilog((context, config) => ConfigureSerilog(context, config), true)
                 .Build();
@@ -39,7 +49,7 @@ namespace DevSubmarine.SubBot
         {
             config.ReadFrom.Configuration(context.Configuration);
             DatadogOptions ddOptions = context.Configuration.GetSection("Serilog")?.GetSection("DataDog")?.Get<DatadogOptions>();
-            if (ddOptions != null)
+            if (!string.IsNullOrWhiteSpace(ddOptions?.ApiKey))
             {
                 config.WriteTo.DatadogLogs(
                     ddOptions.ApiKey,
