@@ -70,7 +70,7 @@ namespace DevSubmarine.SubBot.Commands.Administrator
                 {
                     Embed errorSlowmode = new EmbedBuilder()
                         .WithColor(Color.Red)
-                        .WithTitle("Kick Command : Error")
+                        .WithTitle("Slowmode Command : Error")
                         .WithDescription(ex.Message)
                         .WithFooter($"{ex.HResult}")
                         .Build();

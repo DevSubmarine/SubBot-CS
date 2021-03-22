@@ -34,7 +34,7 @@ namespace DevSubmarine.SubBot.Commands.Administrator
                     Embed successKick = new EmbedBuilder()
                         .WithColor(Color.Green)
                         .WithAuthor("Kick Command : Success", user.GetAvatarUrl())
-                        .WithDescription($"Successfully banned {user.Mention}")
+                        .WithDescription($"Successfully kicked {user.Mention}")
                         .Build();
                     await Context.Message.Channel.SendMessageAsync(embed: successKick);
                 }
