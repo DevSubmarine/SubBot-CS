@@ -9,7 +9,8 @@ namespace DevSubmarine.SubBot.Commands.Administrator
     {
         [RequireOwner]
         [RequireContext(ContextType.Guild, ErrorMessage = "Please use this command in a server!")]
-        [RequireUserPermission(GuildPermission.KickMembers, ErrorMessage = "You do not have permission: `Kick Members`")]
+        [RequireUserPermission(GuildPermission.KickMembers, ErrorMessage = "You do not have permission to `Kick Members`")]
+        [RequireBotPermission(GuildPermission.KickMembers, ErrorMessage = "I do not have permission to `Kick Members`")]
         [Command("kick")]
         public async Task KickUser(IGuildUser user = null, string reason = "Not specified!")
         {

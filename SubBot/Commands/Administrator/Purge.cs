@@ -11,7 +11,8 @@ namespace DevSubmarine.SubBot.Commands.Administrator
     {
         [Command("purge"), Alias("delete")]
         [RequireContext(ContextType.Guild, ErrorMessage = "Please use this command in a server!")]
-        [RequireUserPermission(GuildPermission.ManageMessages, ErrorMessage = "You do not have permission `Manage Messages`")]
+        [RequireUserPermission(GuildPermission.ManageMessages, ErrorMessage = "You do not have the permission to `Manage Messages`")]
+        [RequireBotPermission(GuildPermission.ManageMessages, ErrorMessage = "I do not have the permission to `Manage Messages`")]
         public async Task PurgeMessages(int? msgToDel = null)
         {
             if (msgToDel == null || msgToDel == 0)

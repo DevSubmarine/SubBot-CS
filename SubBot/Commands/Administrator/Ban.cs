@@ -9,7 +9,8 @@ namespace DevSubmarine.SubBot.Commands.Administrator
     {
         [RequireOwner]
         [RequireContext(ContextType.Guild, ErrorMessage = "Please use this command in a server!")]
-        [RequireBotPermission(GuildPermission.BanMembers, ErrorMessage = "I do not have permission: `Ban Members`")]
+        [RequireBotPermission(GuildPermission.BanMembers, ErrorMessage = "I do not have the permission to `Ban Members`")]
+        [RequireBotPermission(GuildPermission.BanMembers, ErrorMessage = "You do not have the permission to `Ban Members`")]
         [Command("ban")]
         public async Task BanUser(IGuildUser user = null, string reason = "Not specified!", [Remainder] int pruneDays = 0)
         {

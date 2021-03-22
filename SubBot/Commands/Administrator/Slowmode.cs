@@ -10,7 +10,8 @@ namespace DevSubmarine.SubBot.Commands.Administrator
     {
         [Command("slowmode"), Alias("sm")]
         [RequireContext(ContextType.Guild, ErrorMessage = "Please use this command in a server!")]
-        [RequireUserPermission(GuildPermission.ManageChannels, ErrorMessage = "You do not have permission `Manage Channels`")]
+        [RequireUserPermission(GuildPermission.ManageChannels, ErrorMessage = "I do not have the permission to `Manage Channels`")]
+        [RequireBotPermission(GuildPermission.ManageChannels, ErrorMessage = "You do not have the permission to `Manage Channels`")]
         public async Task SetSlowmode(int? duration = null)
         {
             if (duration == null)
