@@ -20,7 +20,7 @@ namespace DevSubmarine.SubBot.Commands.Administrator
                     .WithColor(Color.Blue)
                     .WithTitle("Purge Messages : Info")
                     .AddField("Info", "Deletes a specified amount of messages")
-                    .AddField("To Use", "`purge/delete {NumOfMessages}`")
+                    .AddField("To Use", "`purge/delete <message count>`")
                     .Build();
                 await Context.Channel.SendMessageAsync(embed: NullEmbed);
             }
