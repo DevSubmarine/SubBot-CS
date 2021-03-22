@@ -78,6 +78,16 @@ namespace DevSubmarine.SubBot.Services
                 argPos: argPos,
                 services: null)
                 .ConfigureAwait(false);
+
+            // Handle error to notify if something went wrong.
+            if (!result.IsSuccess)
+                await msg.Channel.SendMessageAsync(
+                    embed: new Discord.EmbedBuilder()
+                        .WithColor(Discord.Color.Red)
+                        .WithTitle("Error executing command")
+                        .WithDescription($"**Reason:** {result.ErrorReason}")
+                        .WithFooter($"Detail: {result.Error}")
+                        .Build());
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
