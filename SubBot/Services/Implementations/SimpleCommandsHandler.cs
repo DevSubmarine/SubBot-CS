@@ -37,7 +37,7 @@ namespace DevSubmarine.SubBot.Services
             try { (_commands as IDisposable)?.Dispose(); } catch { }
 
             CommandOptions options = this._commandOptions.CurrentValue;
-            CommandServiceConfig config = new();
+            CommandServiceConfig config = new CommandServiceConfig();
             config.CaseSensitiveCommands = options.CaseSensitive;
             if (options.DefaultRunMode != RunMode.Default)
                 config.DefaultRunMode = options.DefaultRunMode;
