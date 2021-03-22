@@ -31,7 +31,7 @@ namespace DevSubmarine.SubBot.Commands.Administrator
                 int amount = Convert.ToInt32(msgToDel);
                 var messages = await Context.Channel.GetMessagesAsync(Context.Message, Direction.Before, amount).FlattenAsync();
                 var filteredMessages = messages.Where(x => (DateTimeOffset.UtcNow - x.Timestamp).TotalDays <= 14);
-                var count = filteredMessages.Count();
+                int count = filteredMessages.Count();
 
                 if (count < 0 || count > 101)
                 {
@@ -49,7 +49,7 @@ namespace DevSubmarine.SubBot.Commands.Administrator
                     {
                         await (Context.Channel as ITextChannel).DeleteMessagesAsync(filteredMessages);
 
-                        var success = new EmbedBuilder()
+                        Embed success = new EmbedBuilder()
                             .WithColor(Color.Green)
                             .WithTitle("Purge Messages : Success")
                             .WithDescription($"Done. Removed {count} {(count > 1 ? "messages" : "message")}.")
@@ -59,12 +59,12 @@ namespace DevSubmarine.SubBot.Commands.Administrator
 
                     catch (Exception ex)
                     {
-                        var errorSlowmode = new EmbedBuilder()
-                        .WithColor(Color.Red)
-                        .WithTitle("Purge Messages : Error")
-                        .WithDescription(ex.Message)
-                        .WithFooter($"{ex.HResult}")
-                        .Build();
+                        Embed errorSlowmode = new EmbedBuilder()
+                            .WithColor(Color.Red)
+                            .WithTitle("Purge Messages : Error")
+                            .WithDescription(ex.Message)
+                            .WithFooter($"{ex.HResult}")
+                            .Build();
                         await Context.Message.Channel.SendMessageAsync(embed: errorSlowmode);
                     }
                 }

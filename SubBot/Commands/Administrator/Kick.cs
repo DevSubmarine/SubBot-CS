@@ -41,7 +41,6 @@ namespace DevSubmarine.SubBot.Commands.Administrator
                 catch (Exception ex)
                 {
                     Embed errorKick = new EmbedBuilder()
-
                         .WithColor(Color.Red)
                         .WithTitle("Kick Command : Error")
                         .WithDescription(ex.Message)

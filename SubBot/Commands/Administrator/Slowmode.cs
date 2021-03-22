@@ -16,7 +16,7 @@ namespace DevSubmarine.SubBot.Commands.Administrator
         {
             if (duration == null)
             {
-                var slowmodeInfo = new EmbedBuilder()
+                Embed slowmodeInfo = new EmbedBuilder()
                     .WithColor(Color.Blue)
                     .WithTitle("Slowmode Command : Info")
                     .AddField("Info", "Sets the slowmode of text channels in seconds.")
@@ -29,7 +29,7 @@ namespace DevSubmarine.SubBot.Commands.Administrator
 
             else if (duration > 21600) // 21600 = 6 hours
             {
-                var maxLimit = new EmbedBuilder()
+                Embed maxLimit = new EmbedBuilder()
                     .WithColor(Color.Red)
                     .WithTitle("Slowmode Command : Error")
                     .WithDescription("You cannot use more than 21600 (6 hours)!")
@@ -40,7 +40,7 @@ namespace DevSubmarine.SubBot.Commands.Administrator
 
             else if (duration < 0)
             {
-                var minLimit = new EmbedBuilder()
+                Embed minLimit = new EmbedBuilder()
                     .WithColor(Color.Red)
                     .WithTitle("Slowmode Command : Error")
                     .WithDescription("You cannot use less than 0!")
@@ -59,7 +59,7 @@ namespace DevSubmarine.SubBot.Commands.Administrator
 
                     await channel.ModifyAsync(x => x.SlowModeInterval = Convert.ToInt32(duration));
 
-                    var Result = new EmbedBuilder()
+                    Embed Result = new EmbedBuilder()
                         .WithColor(Color.Green)
                         .WithTitle("Slowmode Command : Success")
                         .WithDescription($"Slowmode of {duration} seconds was set!")

@@ -16,7 +16,7 @@ namespace DevSubmarine.SubBot.Commands.Administrator
         {
             if (user == null)
             {
-                var nullUser = new EmbedBuilder()
+                Embed nullUser = new EmbedBuilder()
                     .WithColor(Color.Red)
                     .WithTitle("Ban Command : Info")
                     .AddField("Usage:", "`ban <user> <reason*> <pruneMessages* (days)>`", true)
@@ -32,7 +32,7 @@ namespace DevSubmarine.SubBot.Commands.Administrator
                 {
                     await user.BanAsync(pruneDays, reason);
 
-                    var successBan = new EmbedBuilder()
+                    Embed successBan = new EmbedBuilder()
                         .WithColor(Color.Green)
                         .WithAuthor("Ban Command : Success", user.GetAvatarUrl())
                         .WithDescription($"Successfully banned {user.Mention}")
@@ -41,7 +41,7 @@ namespace DevSubmarine.SubBot.Commands.Administrator
                 }
                 catch (Exception ex)
                 {
-                    var errorBan = new EmbedBuilder()
+                    Embed errorBan = new EmbedBuilder()
                         .WithColor(Color.Red)
                         .WithTitle("Ban Command : Error")
                         .WithDescription(ex.Message)
