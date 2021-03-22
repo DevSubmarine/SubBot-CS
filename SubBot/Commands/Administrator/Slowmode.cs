@@ -10,12 +10,13 @@ namespace DevSubmarine.SubBot.Commands.Administrator
     {
         [Command("slowmode"), Alias("sm")]
         [RequireContext(ContextType.Guild, ErrorMessage = "Please use this command in a server!")]
-        [RequireUserPermission(GuildPermission.ManageChannels, ErrorMessage = "You do not have permission `Manage Channels`")]
+        [RequireUserPermission(GuildPermission.ManageChannels, ErrorMessage = "I do not have the permission to `Manage Channels`")]
+        [RequireBotPermission(GuildPermission.ManageChannels, ErrorMessage = "You do not have the permission to `Manage Channels`")]
         public async Task SetSlowmode(int? duration = null)
         {
             if (duration == null)
             {
-                var SlowModeInfo = new EmbedBuilder()
+                Embed slowmodeInfo = new EmbedBuilder()
                     .WithColor(Color.Blue)
                     .WithTitle("Slowmode Command : Info")
                     .AddField("Info", "Sets the slowmode of text channels in seconds.")
@@ -23,29 +24,29 @@ namespace DevSubmarine.SubBot.Commands.Administrator
                     .WithFooter("Note: <duration> is in seconds")
                     .Build();
 
-                await Context.Channel.SendMessageAsync(embed: SlowModeInfo);
+                await Context.Channel.SendMessageAsync(embed: slowmodeInfo);
             }
 
             else if (duration > 21600) // 21600 = 6 hours
             {
-                var MaxLimit = new EmbedBuilder()
+                Embed maxLimit = new EmbedBuilder()
                     .WithColor(Color.Red)
                     .WithTitle("Slowmode Command : Error")
                     .WithDescription("You cannot use more than 21600 (6 hours)!")
                     .Build();
 
-                await Context.Channel.SendMessageAsync(embed: MaxLimit);
+                await Context.Channel.SendMessageAsync(embed: maxLimit);
             }
 
             else if (duration < 0)
             {
-                var MinLimit = new EmbedBuilder()
+                Embed minLimit = new EmbedBuilder()
                     .WithColor(Color.Red)
                     .WithTitle("Slowmode Command : Error")
                     .WithDescription("You cannot use less than 0!")
                     .Build();
 
-                await Context.Channel.SendMessageAsync(embed: MinLimit);
+                await Context.Channel.SendMessageAsync(embed: minLimit);
             }
 
             else if (duration != null && duration > -1 && duration < 21601)
@@ -58,7 +59,7 @@ namespace DevSubmarine.SubBot.Commands.Administrator
 
                     await channel.ModifyAsync(x => x.SlowModeInterval = Convert.ToInt32(duration));
 
-                    var Result = new EmbedBuilder()
+                    Embed Result = new EmbedBuilder()
                         .WithColor(Color.Green)
                         .WithTitle("Slowmode Command : Success")
                         .WithDescription($"Slowmode of {duration} seconds was set!")
@@ -70,7 +71,7 @@ namespace DevSubmarine.SubBot.Commands.Administrator
                 {
                     Embed errorSlowmode = new EmbedBuilder()
                         .WithColor(Color.Red)
-                        .WithTitle("Kick Command : Error")
+                        .WithTitle("Slowmode Command : Error")
                         .WithDescription(ex.Message)
                         .WithFooter($"{ex.HResult}")
                         .Build();

@@ -11,18 +11,19 @@ namespace DevSubmarine.SubBot.Commands.Administrator
     {
         [Command("purge"), Alias("delete")]
         [RequireContext(ContextType.Guild, ErrorMessage = "Please use this command in a server!")]
-        [RequireUserPermission(GuildPermission.ManageMessages, ErrorMessage = "You do not have permission `Manage Messages`")]
+        [RequireUserPermission(GuildPermission.ManageMessages, ErrorMessage = "You do not have the permission to `Manage Messages`")]
+        [RequireBotPermission(GuildPermission.ManageMessages, ErrorMessage = "I do not have the permission to `Manage Messages`")]
         public async Task PurgeMessages(int? msgToDel = null)
         {
             if (msgToDel == null || msgToDel == 0)
             {
-                Embed NullEmbed = new EmbedBuilder()
+                Embed nullEmbed = new EmbedBuilder()
                     .WithColor(Color.Blue)
                     .WithTitle("Purge Messages : Info")
                     .AddField("Info", "Deletes a specified amount of messages")
-                    .AddField("To Use", "`purge/delete {NumOfMessages}`")
+                    .AddField("To Use", "`purge/delete <message count>`")
                     .Build();
-                await Context.Channel.SendMessageAsync(embed: NullEmbed);
+                await Context.Channel.SendMessageAsync(embed: nullEmbed);
             }
 
             else
@@ -30,7 +31,7 @@ namespace DevSubmarine.SubBot.Commands.Administrator
                 int amount = Convert.ToInt32(msgToDel);
                 var messages = await Context.Channel.GetMessagesAsync(Context.Message, Direction.Before, amount).FlattenAsync();
                 var filteredMessages = messages.Where(x => (DateTimeOffset.UtcNow - x.Timestamp).TotalDays <= 14);
-                var count = filteredMessages.Count();
+                int count = filteredMessages.Count();
 
                 if (count < 0 || count > 101)
                 {
@@ -48,22 +49,22 @@ namespace DevSubmarine.SubBot.Commands.Administrator
                     {
                         await (Context.Channel as ITextChannel).DeleteMessagesAsync(filteredMessages);
 
-                        Embed Success = new EmbedBuilder()
+                        Embed success = new EmbedBuilder()
                             .WithColor(Color.Green)
                             .WithTitle("Purge Messages : Success")
                             .WithDescription($"Done. Removed {count} {(count > 1 ? "messages" : "message")}.")
                             .Build();
-                        await Context.Message.Channel.SendMessageAsync(embed: Success);
+                        await Context.Message.Channel.SendMessageAsync(embed: success);
                     }
 
                     catch (Exception ex)
                     {
                         Embed errorSlowmode = new EmbedBuilder()
-                        .WithColor(Color.Red)
-                        .WithTitle("Purge Messages : Error")
-                        .WithDescription(ex.Message)
-                        .WithFooter($"{ex.HResult}")
-                        .Build();
+                            .WithColor(Color.Red)
+                            .WithTitle("Purge Messages : Error")
+                            .WithDescription(ex.Message)
+                            .WithFooter($"{ex.HResult}")
+                            .Build();
                         await Context.Message.Channel.SendMessageAsync(embed: errorSlowmode);
                     }
                 }
