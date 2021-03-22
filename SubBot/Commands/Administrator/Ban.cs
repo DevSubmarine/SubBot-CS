@@ -7,7 +7,6 @@ namespace DevSubmarine.SubBot.Commands.Administrator
 {
     public class Ban : ModuleBase<SocketCommandContext>
     {
-        [RequireOwner]
         [RequireContext(ContextType.Guild, ErrorMessage = "Please use this command in a server!")]
         [RequireBotPermission(GuildPermission.BanMembers, ErrorMessage = "I do not have the permission to `Ban Members`")]
         [RequireBotPermission(GuildPermission.BanMembers, ErrorMessage = "You do not have the permission to `Ban Members`")]
