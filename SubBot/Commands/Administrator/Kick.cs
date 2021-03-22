@@ -7,7 +7,6 @@ namespace DevSubmarine.SubBot.Commands.Administrator
 {
     public class Kick : ModuleBase<SocketCommandContext>
     {
-        [RequireOwner]
         [RequireContext(ContextType.Guild, ErrorMessage = "Please use this command in a server!")]
         [RequireUserPermission(GuildPermission.KickMembers, ErrorMessage = "You do not have permission to `Kick Members`")]
         [RequireBotPermission(GuildPermission.KickMembers, ErrorMessage = "I do not have permission to `Kick Members`")]
