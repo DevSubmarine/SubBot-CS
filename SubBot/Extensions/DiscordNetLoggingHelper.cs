@@ -24,44 +24,30 @@ namespace DevSubmarine.SubBot
 
         public static LogLevel ToLogLevel(this LogSeverity severity)
         {
-            switch (severity)
+            return severity switch
             {
-                case LogSeverity.Critical:
-                    return LogLevel.Critical;
-                case LogSeverity.Error:
-                    return LogLevel.Error;
-                case LogSeverity.Warning:
-                    return LogLevel.Warning;
-                case LogSeverity.Info:
-                    return LogLevel.Information;
-                case LogSeverity.Debug:
-                    return LogLevel.Debug;
-                case LogSeverity.Verbose:
-                    return LogLevel.Trace; ;
-                default:
-                    throw new ArgumentException($"Unknown severity {severity}", nameof(severity));
-            }
+                LogSeverity.Critical => LogLevel.Critical,
+                LogSeverity.Error => LogLevel.Error,
+                LogSeverity.Warning => LogLevel.Warning,
+                LogSeverity.Info => LogLevel.Information,
+                LogSeverity.Debug => LogLevel.Debug,
+                LogSeverity.Verbose => LogLevel.Trace,
+                _ => throw new ArgumentException($"Unknown severity {severity}", nameof(severity)),
+            };
         }
 
         public static LogSeverity ToLogSeverity(this LogLevel level)
         {
-            switch (level)
+            return level switch
             {
-                case LogLevel.Critical:
-                    return LogSeverity.Critical;
-                case LogLevel.Error:
-                    return LogSeverity.Error;
-                case LogLevel.Warning:
-                    return LogSeverity.Warning;
-                case LogLevel.Information:
-                    return LogSeverity.Info;
-                case LogLevel.Debug:
-                    return LogSeverity.Debug;
-                case LogLevel.Trace:
-                    return LogSeverity.Verbose;
-                default:
-                    throw new ArgumentException($"Unknown log level {level}", nameof(level));
-            }
+                LogLevel.Critical => LogSeverity.Critical,
+                LogLevel.Error => LogSeverity.Error,
+                LogLevel.Warning => LogSeverity.Warning,
+                LogLevel.Information => LogSeverity.Info,
+                LogLevel.Debug => LogSeverity.Debug,
+                LogLevel.Trace => LogSeverity.Verbose,
+                _ => throw new ArgumentException($"Unknown log level {level}", nameof(level)),
+            };
         }
     }
 }
