@@ -16,13 +16,13 @@ namespace DevSubmarine.SubBot.Commands.Administrator
         {
             if (msgToDel == null || msgToDel == 0)
             {
-                Embed NullEmbed = new EmbedBuilder()
+                Embed nullEmbed = new EmbedBuilder()
                     .WithColor(Color.Blue)
                     .WithTitle("Purge Messages : Info")
                     .AddField("Info", "Deletes a specified amount of messages")
                     .AddField("To Use", "`purge/delete <message count>`")
                     .Build();
-                await Context.Channel.SendMessageAsync(embed: NullEmbed);
+                await Context.Channel.SendMessageAsync(embed: nullEmbed);
             }
 
             else
@@ -48,17 +48,17 @@ namespace DevSubmarine.SubBot.Commands.Administrator
                     {
                         await (Context.Channel as ITextChannel).DeleteMessagesAsync(filteredMessages);
 
-                        Embed Success = new EmbedBuilder()
+                        var success = new EmbedBuilder()
                             .WithColor(Color.Green)
                             .WithTitle("Purge Messages : Success")
                             .WithDescription($"Done. Removed {count} {(count > 1 ? "messages" : "message")}.")
                             .Build();
-                        await Context.Message.Channel.SendMessageAsync(embed: Success);
+                        await Context.Message.Channel.SendMessageAsync(embed: success);
                     }
 
                     catch (Exception ex)
                     {
-                        Embed errorSlowmode = new EmbedBuilder()
+                        var errorSlowmode = new EmbedBuilder()
                         .WithColor(Color.Red)
                         .WithTitle("Purge Messages : Error")
                         .WithDescription(ex.Message)
