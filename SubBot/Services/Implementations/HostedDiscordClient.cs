@@ -80,6 +80,7 @@ namespace DevSubmarine.SubBot.Services
         {
             _client.Log -= OnClientLog;
             _client?.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

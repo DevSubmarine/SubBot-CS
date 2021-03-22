@@ -104,8 +104,6 @@ namespace DevSubmarine.SubBot.Services
         }
 
         public void Dispose()
-        {
-            this._client.MessageReceived -= HandleCommandAsync;
-        }
+            => this._client.MessageReceived -= HandleCommandAsync;
     }
 }

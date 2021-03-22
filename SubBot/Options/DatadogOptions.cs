@@ -18,7 +18,6 @@ namespace DevSubmarine.SubBot
 
         public LogEventLevel? OverrideLogLevel { get; set; }
 
-
         public DatadogConfiguration ToDatadogConfiguration()
             => new DatadogConfiguration(URL, Port, UseSSL, UseTCP);
     }
